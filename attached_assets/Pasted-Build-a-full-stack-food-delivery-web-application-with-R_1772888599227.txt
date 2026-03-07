@@ -1,0 +1,45 @@
+Build a full-stack food delivery web application with React.js frontend, Node.js + Express.js backend, and MongoDB database. The app should have **two roles: User and Admin** with the following requirements:
+
+1. **User Features:**
+   - Register and login functionality.
+   - View a list of restaurants.
+   - Click on a restaurant to see its menu (item name, description, price, image).
+   - Add menu items to a cart.
+   - Place an order.
+   - View order history.
+
+2. **Admin Features:**
+   - Admin login (separate from user login).
+   - Add, update, or delete restaurants.
+   - Add, update, or delete menu items for each restaurant (including name, description, price, and image).
+   - View all orders placed by users.
+
+3. **Frontend (React.js):**
+   - Separate dashboards for User and Admin after login.
+   - Use React Router for navigation.
+   - Forms for login, registration, and menu/item management.
+   - Cart functionality for users.
+   - Responsive design for desktop and mobile.
+
+4. **Backend (Node.js + Express.js):**
+   - RESTful API endpoints for:
+     - Users: `/auth/register`, `/auth/login`
+     - Restaurants: `/restaurants` (GET, POST, PUT, DELETE) – admin only for POST/PUT/DELETE
+     - Menu items: `/restaurants/:id/menu` (GET, POST, PUT, DELETE) – admin only for POST/PUT/DELETE
+     - Cart: `/cart` (GET, POST, DELETE)
+     - Orders: `/orders` (POST for users, GET for users/admin)
+   - JWT authentication for protected routes.
+   - Role-based access control (User vs Admin).
+
+5. **Database (MongoDB):**
+   - Users collection: name, email, password (hashed), role (user/admin), address.
+   - Restaurants collection: name, location, cuisine, menu items.
+   - MenuItems collection: restaurantId, name, description, price, image URL.
+   - Orders collection: userId, items, totalPrice, status, createdAt.
+
+6. **Extras:**
+   - Input validation and error handling.
+   - Seed data for restaurants and menu items.
+   - Instructions to run the frontend and backend locally.
+
+Generate **project folder structure**, **sample code files**, and **sample data** so I can run it immediately.
