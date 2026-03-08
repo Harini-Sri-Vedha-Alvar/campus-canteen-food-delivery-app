@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Food Delivery Web Application
 
 A full-stack food delivery platform built with React.js, Node.js + Express, and PostgreSQL.
@@ -216,3 +217,7 @@ For issues or questions, check the logs:
 ```
 
 Enjoy your food delivery application!
+=======
+# campus-canteen-food-delivery-app
+A web-based food ordering application for a campus canteen that allows students to view the menu, place orders, and enables admins to manage orders efficiently using the MERN stack.
+>>>>>>> 587430f764b0d743fb39fb92d3ba5f589cc22160

@@ -1,6 +1,13 @@
+<<<<<<< HEAD:server/index.js
 import express from "express";
 import { registerRoutes } from "./routes.js";
 import { serveStatic } from "./static.js";
+=======
+import "dotenv/config";
+import express, { type Request, Response, NextFunction } from "express";
+import { registerRoutes } from "./routes";
+import { serveStatic } from "./static";
+>>>>>>> 587430f764b0d743fb39fb92d3ba5f589cc22160:server/index.ts
 import { createServer } from "http";
 
 const app = express();
@@ -77,14 +84,7 @@ app.use((req, res, next) => {
   }
 
   const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    },
-    () => {
-      log(`serving on port ${port}`);
-    },
-  );
+  httpServer.listen(port, () => {
+  log(`serving on port ${port}`);
+});
 })();
