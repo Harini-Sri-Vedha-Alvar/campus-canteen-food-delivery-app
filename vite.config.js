@@ -13,8 +13,17 @@ export default defineConfig({
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
+<<<<<<< HEAD
           (await import("@replit/vite-plugin-cartographer")).cartographer(),
           (await import("@replit/vite-plugin-dev-banner")).devBanner(),
+=======
+          (await import("@replit/vite-plugin-cartographer")).then((m) =>
+            m.cartographer(),
+          ),
+          (await import("@replit/vite-plugin-dev-banner")).then((m) =>
+            m.devBanner(),
+          ),
+>>>>>>> 106391e09a962c6ab535afdd80836e0eb4340a06
         ]
       : []),
   ],

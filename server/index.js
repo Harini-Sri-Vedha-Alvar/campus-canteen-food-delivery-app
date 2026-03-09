@@ -1,7 +1,20 @@
+<<<<<<< HEAD
 import "dotenv/config";
 import express from "express";
 import { registerRoutes } from "./routes.js";
 import { serveStatic } from "./static.js";
+=======
+<<<<<<< HEAD:server/index.js
+import express from "express";
+import { registerRoutes } from "./routes.js";
+import { serveStatic } from "./static.js";
+=======
+import "dotenv/config";
+import express, { type Request, Response, NextFunction } from "express";
+import { registerRoutes } from "./routes";
+import { serveStatic } from "./static";
+>>>>>>> 587430f764b0d743fb39fb92d3ba5f589cc22160:server/index.ts
+>>>>>>> 106391e09a962c6ab535afdd80836e0eb4340a06
 import { createServer } from "http";
 
 const app = express();

@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 106391e09a962c6ab535afdd80836e0eb4340a06
 // backend/server.js
 const express = require('express');
 const mongoose = require('mongoose');
@@ -32,4 +36,23 @@ mongoose.connect(process.env.MONGO_URI, {
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
+<<<<<<< HEAD
+=======
+=======
+const express = require("express");
+const cors = require("cors");
+const pool = require("./db");
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+const userRoutes = require("./routes/users");
+app.use("/users", userRoutes);
+
+app.listen(5000, () => {
+  console.log("Server running on port 5000");
+>>>>>>> 587430f764b0d743fb39fb92d3ba5f589cc22160
+>>>>>>> 106391e09a962c6ab535afdd80836e0eb4340a06
 });
