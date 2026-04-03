@@ -24,3 +24,12 @@ expertMode = true
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[userenv]
+
+[userenv.shared]
+MONGO_URI = "mongodb://localhost:27017/foodrush"
+JWT_SECRET = "foodrush-super-secret-key-2024-change-in-production"
+
+[nix]
+channel = "stable-25_05"
