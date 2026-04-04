@@ -2,14 +2,14 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useGetAdminRevenue, getGetAdminRevenueQueryKey } from "@workspace/api-client-react";
+import { useGetRevenue, getGetRevenueQueryKey } from "@workspace/api-client-react";
 import { useAuth } from "@/lib/auth";
 import { ChevronLeft, TrendingUp, Package, DollarSign } from "lucide-react";
 
 export default function AdminRevenue() {
   const { user } = useAuth();
-  const { data: revenue, isLoading } = useGetAdminRevenue({
-    query: { queryKey: getGetAdminRevenueQueryKey() }
+  const { data: revenue, isLoading } = useGetRevenue({
+    query: { queryKey: getGetRevenueQueryKey() }
   });
 
   if (user?.role !== "admin") {
@@ -30,7 +30,7 @@ export default function AdminRevenue() {
 
       {isLoading ? (
         <div className="space-y-4">
-          <div className="grid grid-cols-3 gap-4">{[1, 2, 3].map(i => <Skeleton key={i} className="h-28 rounded-xl" />)}</div>
+          <div className="grid grid-cols-3 gap-4">{[1,2,3].map(i => <Skeleton key={i} className="h-28 rounded-xl" />)}</div>
           <Skeleton className="h-96 rounded-xl" />
         </div>
       ) : (
@@ -59,24 +59,20 @@ export default function AdminRevenue() {
             </Card>
           </div>
 
-          {revenue?.dailyRevenue?.length > 0 && (
+          {(revenue?.revenueByDay || revenue?.dailyRevenue)?.length > 0 && (
             <Card className="border-border/50 mb-6">
-              <CardHeader>
-                <CardTitle className="text-base">Daily Revenue (Last 30 Days)</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle className="text-base">Daily Revenue (Last 7 Days)</CardTitle></CardHeader>
               <CardContent>
                 <div className="flex items-end gap-1 h-48 overflow-x-auto pb-2">
-                  {revenue.dailyRevenue.map((day: any) => {
-                    const maxRevenue = Math.max(...revenue.dailyRevenue.map((d: any) => d.revenue));
-                    const heightPct = maxRevenue > 0 ? (day.revenue / maxRevenue) * 100 : 0;
+                  {(revenue.revenueByDay || revenue.dailyRevenue).map(day => {
+                    const all = revenue.revenueByDay || revenue.dailyRevenue;
+                    const maxRev = Math.max(...all.map(d => d.revenue));
+                    const heightPct = maxRev > 0 ? (day.revenue / maxRev) * 100 : 0;
                     return (
-                      <div key={day.date} className="flex flex-col items-center gap-1 flex-1 min-w-8" title={`₹${day.revenue} on ${day.date}`}>
-                        <span className="text-xs text-muted-foreground hidden md:block">₹{day.revenue > 999 ? `${(day.revenue/1000).toFixed(1)}k` : day.revenue}</span>
-                        <div
-                          className="w-full bg-primary/80 rounded-t-sm min-h-1 hover:bg-primary transition-colors"
-                          style={{ height: `${Math.max(4, heightPct)}%` }}
-                        />
-                        <span className="text-[10px] text-muted-foreground">{day.date.slice(5)}</span>
+                      <div key={day.date} className="flex flex-col items-center gap-1 flex-1 min-w-8" title={`₹${day.revenue}`}>
+                        <span className="text-xs text-muted-foreground">₹{day.revenue > 999 ? `${(day.revenue/1000).toFixed(1)}k` : day.revenue}</span>
+                        <div className="w-full bg-primary/80 rounded-t-sm min-h-1 hover:bg-primary transition-colors" style={{ height: `${Math.max(4, heightPct)}%` }} />
+                        <span className="text-[10px] text-muted-foreground">{day.date?.slice(5)}</span>
                       </div>
                     );
                   })}
@@ -87,27 +83,25 @@ export default function AdminRevenue() {
 
           {revenue?.topRestaurants?.length > 0 && (
             <Card className="border-border/50">
-              <CardHeader>
-                <CardTitle className="text-base">Top Restaurants by Revenue</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle className="text-base">Top Restaurants by Revenue</CardTitle></CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {revenue.topRestaurants.map((r: any, idx: number) => {
-                    const maxRevenue = Math.max(...revenue.topRestaurants.map((x: any) => x.revenue));
-                    const pct = maxRevenue > 0 ? (r.revenue / maxRevenue) * 100 : 0;
+                  {revenue.topRestaurants.map((r, idx) => {
+                    const maxRev = Math.max(...revenue.topRestaurants.map(x => x.revenue));
+                    const pct = maxRev > 0 ? (r.revenue / maxRev) * 100 : 0;
                     return (
-                      <div key={r.restaurantId} className="flex items-center gap-3">
+                      <div key={r.restaurantId || idx} className="flex items-center gap-3">
                         <span className="text-sm font-bold text-muted-foreground w-5">{idx + 1}</span>
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-1">
-                            <p className="font-medium text-sm">{r.name}</p>
+                            <p className="font-medium text-sm">{r.name || r.restaurantName}</p>
                             <div className="flex items-center gap-3 text-sm text-muted-foreground">
                               <span>{r.orders} orders</span>
                               <span className="font-bold text-foreground">₹{r.revenue?.toLocaleString()}</span>
                             </div>
                           </div>
                           <div className="h-2 bg-muted rounded-full overflow-hidden">
-                            <div className="h-full bg-primary rounded-full transition-all" style={{ width: `${pct}%` }} />
+                            <div className="h-full bg-primary rounded-full" style={{ width: `${pct}%` }} />
                           </div>
                         </div>
                       </div>
