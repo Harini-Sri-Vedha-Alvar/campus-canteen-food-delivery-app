@@ -1,0 +1,11 @@
+[1G[0K⠙[1G[0K
+> rest-express@1.0.0 dev
+> NODE_ENV=development node server/index.js
+
+[1G[0K⠙[1G[0K1:13:14 PM [express] serving on port 5000
+1:13:22 PM [express] GET /api/restaurants 304 in 9ms :: [{"id":1,"name":"Pizza Palace","location":"Downtown","cuisine":"Italian"},{"id":2,"name":"Burger Barn","location":"Uptown","cuisine":"American"}]
+1:13:22 PM [express] GET /api/auth/me 304 in 7ms :: {"id":1,"email":"admin@admin.com","name":"Admin User","role":"admin","address":"Admin HQ"}
+1:13:22 PM [express] GET /api/cart 304 in 16ms :: []
+1:27:12 PM [express] GET /api/restaurants 304 in 6ms :: [{"id":1,"name":"Pizza Palace","location":"Downtown","cuisine":"Italian"},{"id":2,"name":"Burger Barn","location":"Uptown","cuisine":"American"}]
+1:27:12 PM [express] GET /api/cart 304 in 8ms :: []
+1:27:12 PM [express] GET /api/auth/me 304 in 7ms :: {"id":1,"email":"admin@admin.com","name":"Admin User","role":"admin","address":"Admin HQ"}
