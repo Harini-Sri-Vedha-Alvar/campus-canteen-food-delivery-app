@@ -247,4 +247,50 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+
+  .food-slide {
+    position: absolute;
+    animation: float-food 22s linear infinite;
+    will-change: transform, opacity;
+  }
+  .food-slide.delay-2000 {
+    animation-delay: 2s;
+  }
+  .food-slide.delay-4000 {
+    animation-delay: 4s;
+  }
+  .food-slide.delay-6000 {
+    animation-delay: 6s;
+  }
+  @keyframes float-food {
+    0% {
+      transform: translateX(-140%) translateY(0) rotate(-12deg);
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.3;
+    }
+    50% {
+      transform: translateX(110%) translateY(16px) rotate(4deg);
+      opacity: 0.55;
+    }
+    100% {
+      transform: translateX(240%) translateY(-14px) rotate(14deg);
+      opacity: 0;
+    }
+  }
+
+  .fade-slide-up {
+    animation: fade-slide-up 0.85s ease-out both;
+  }
+  @keyframes fade-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }

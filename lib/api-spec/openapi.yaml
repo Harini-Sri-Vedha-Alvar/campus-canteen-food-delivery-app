@@ -185,6 +185,49 @@ paths:
                 items:
                   $ref: "#/components/schemas/MenuItem"
 
+  /restaurants/{restaurantId}/menu/{itemId}:
+    put:
+      operationId: updateMenuItem
+      tags: [menu]
+      summary: Update a menu item (admin)
+      parameters:
+        - name: restaurantId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+                category:
+                  type: string
+                image:
+                  type: string
+      responses:
+        "200":
+          description: Updated menu item
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MenuItem"
+        "404":
+          description: Not found
+
   /menu:
     get:
       operationId: listMenuItems
@@ -405,6 +448,51 @@ paths:
       responses:
         "200":
           description: Status updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Order"
+
+  /orders/{id}/rate:
+    post:
+      operationId: rateOrder
+      tags: [orders]
+      summary: Rate order items and restaurant
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                restaurantRating:
+                  type: number
+                  minimum: 1
+                  maximum: 5
+                restaurantReview:
+                  type: string
+                itemRatings:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      menuItemId:
+                        type: string
+                      rating:
+                        type: number
+                        minimum: 1
+                        maximum: 5
+                      review:
+                        type: string
+      responses:
+        "200":
+          description: Rating submitted
           content:
             application/json:
               schema:
@@ -775,6 +863,10 @@ components:
           type: array
           items:
             type: string
+        menu:
+          type: array
+          items:
+            $ref: "#/components/schemas/MenuItem"
         createdAt:
           type: string
       required:
@@ -1004,6 +1096,12 @@ components:
           type: string
         updatedAt:
           type: string
+        restaurantRating:
+          type: ["number", "null"]
+          minimum: 1
+          maximum: 5
+        restaurantReview:
+          type: ["string", "null"]
       required:
         - id
         - userId
@@ -1037,6 +1135,12 @@ components:
         quantity:
           type: number
         image:
+          type: ["string", "null"]
+        rating:
+          type: ["number", "null"]
+          minimum: 1
+          maximum: 5
+        review:
           type: ["string", "null"]
       required:
         - menuItemId
